@@ -13,11 +13,12 @@ const SignInPage = () => {
             email: userData.email,   
             password: userData.password, 
             rememberMe: true,
-            callbackURL: '/',
+            callbackURL: '/Component/welcome',
         });
         console.log('sign in data', { data, error });
         // shanto@gmail.com
         // 123456Lka
+        
     };
 
     return (
