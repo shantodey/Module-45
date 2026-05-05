@@ -1,19 +1,28 @@
 'use client';
+
+import { authClient } from "@/app/lib/auth-client";
+import { Check } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
-const singIn = () => {
+
+const SignInPage = () => {
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const userData = Object.fromEntries(formData.entries());
+        const { data, error } = await authClient.signIn.email({    
+            email: userData.email,   
+            password: userData.password, 
+            rememberMe: true,
+            callbackURL: '/',
+        });
+        console.log('sign in data', { data, error });
+        // shanto@gmail.com
+        // 123456Lka
+    };
+
     return (
         <div className="container mx-auto">
             <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
-                <TextField
-                    isRequired
-                    name="name"
-                    validate={(value) => value.length < 3 ? "Name must be at least 3 characters" : null}
-                >
-                    <Label>Name</Label>
-                    <Input name="name" placeholder="Your Name" /> 
-                    <FieldError />
-                </TextField>
-
                 <TextField
                     isRequired
                     name="email"
@@ -25,7 +34,7 @@ const singIn = () => {
                     }
                 >
                     <Label>Email</Label>
-                    <Input name="email" placeholder="john@example.com" /> 
+                    <Input name="email" placeholder="john@example.com" />
                     <FieldError />
                 </TextField>
 
@@ -41,7 +50,7 @@ const singIn = () => {
                     }}
                 >
                     <Label>Password</Label>
-                    <Input name="password" placeholder="Enter your password" /> {/* ✅ removed duplicate name prop */}
+                    <Input name="password" placeholder="Enter your password" />
                     <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
                     <FieldError />
                 </TextField>
@@ -58,4 +67,4 @@ const singIn = () => {
     );
 };
 
-export default singIn;
+export default SignInPage;

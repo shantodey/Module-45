@@ -4,7 +4,7 @@ import { authClient } from "@/app/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 
-const SignUp = () => {
+const SignUpPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -17,6 +17,12 @@ const SignUp = () => {
     });
 
     console.log({ data, error });
+    if(data){
+      alert('sing up seucess full')
+    }
+    if(error){
+      alert('sing up unsecussfill')
+    }
   };
 
   return (
@@ -78,4 +84,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;
